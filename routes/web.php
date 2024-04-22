@@ -19,4 +19,3 @@ Route::get('/', function () {
     return 'this my first page';
 });
 Route::get('/mypage', [MyPlaceController::class,'index']);
-c
