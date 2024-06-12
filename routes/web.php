@@ -7,7 +7,7 @@ use App\Http\Controllers\MyPlaceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
-/*
+/*git
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
