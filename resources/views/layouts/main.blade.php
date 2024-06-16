@@ -14,7 +14,7 @@
         <nav>
             <ul>
                 <li><a href="{{ route('main.index') }}">Main</a></li>
-                <li><a href="{{ route('posts.index') }}">Posts</a></li>
+                <li><a href="{{ route('post.index') }}">Posts</a></li>
                 <li><a href="{{ route('about.index') }}">About</a></li>
                 <li><a href="{{ route('contact.index') }}">Contact</a></li>
             </ul>

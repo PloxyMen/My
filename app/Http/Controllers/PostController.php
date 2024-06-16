@@ -11,48 +11,47 @@ public function index()
 {
 
     $posts = Post::all();
-    return view('posts', compact('posts'));
+    return view('post.index', compact('posts'));
 }
 
     public function create()
-{
-    $postsArr = [
-        [
-            'title'=> 'title of post from phpstorm',
-            'content'=> 'some interesting content',
-            'images'=> 'imageblala.jpg',
-            'likes'=> 20,
-            'is_published'=> 1,
-        ],
-        [
-        'title'=> 'another title of post from phpstorm',
-        'content'=> 'another some interesting content',
-        'images'=> 'another imageblala.jpg',
-        'likes'=> 50,
-        'is_published'=> 1,
-        ],
-    ];
-        foreach ($postsArr as $item){
-            Post::create([
-                'title'=> $item['title'],
-                'content'=> $item['content'],
-                'images'=> $item['images'],
-                'likes'=> $item['likes'],
-                'is_published'=> $item['is_published'],
-            ]);
-        }
-        dd('created') ;
-    }
-    public function update()
     {
-        $post = Post::find(11);
-
-        $post->update([
-            'title'=> '111 updated',
-            'content'=> '111 updated',
-        ]);
-        dd('updated') ;
+        return view('post.create');
     }
+
+    public function store()
+    {
+        $data =request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'images'=>'string'
+        ]);
+            Post::create($data);
+            return redirect()->route('post.index');
+    }
+
+    public function show(Post $post){
+
+        return view('post.show',compact('post'));
+}
+
+    public function update(Post $post)
+    {
+        $data =request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'images'=>'string'
+        ]);
+        $post->update($data);
+        return redirect()->route('post.show',$post->id);
+    }
+
+    public function edit(Post $post){
+
+            return view('post.edit',compact('post'));
+    }
+
+
     public function delete()
     {
         $post = Post::withTrashed()->find(2);
@@ -60,8 +59,11 @@ public function index()
         dd('deleted') ;
     }
 
-    // firstOrCreate
-    //updateOrCreate
+    public function destroy(Post $post)
+    {
+       $post->delete();
+       return redirect()->route('post.index');
+    }
 
     public function firstOrCreate()
     {
@@ -105,8 +107,5 @@ public function index()
             'likes'=> 500,
             'is_published'=> 0,
         ]);
-
-        dump($post->content);
-        dd('22222');
     }
 }
